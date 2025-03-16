@@ -15,7 +15,7 @@ import (
 const db = "go-mongo2"
 const coll = "user"
 
-func ConnectDB() *mongo.Client {
+func ConnectDB() (*mongo.Client, *mongo.Collection) {
 	if err := godotenv.Load(".env"); err != nil {
 		log.Fatal("error loading env file")
 	}
@@ -28,13 +28,14 @@ func ConnectDB() *mongo.Client {
 	if err != nil {
 		log.Fatal("Could not connect to MongoDB:", err)
 	}
+	collection := client.Database(db).Collection(coll)
 	fmt.Println("database connection successful!")
-	return client
+	return client, collection
 }
 
-var client = ConnectDB()
+// var client = ConnectDB()
 
-func GetCollection() *mongo.Collection {
-	return client.Database(db).Collection(coll)
+// func GetCollection() *mongo.Collection {
+// 	return client.Database(db).Collection(coll)
 
-}
+// }

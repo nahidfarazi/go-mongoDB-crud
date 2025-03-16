@@ -5,12 +5,14 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 	"github.com/nahidfarazi/go-mongo2/handlers"
 )
 
 func main() {
 
 	r := chi.NewRouter()
+	r.Use(middleware.Logger)
 	r.Get("/users", handlers.GetAllUsers)
 	r.Get("/users/{id}", handlers.GetUserByID)
 	r.Post("/users", handlers.CreateUser)
